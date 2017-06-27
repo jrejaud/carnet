@@ -37,19 +37,7 @@ module.exports = function(app, db) {
         });
     });
 
-    //DELETE
-    app.delete('/notes/:id', (req, res) => {
-      const details = { "_id": new ObjectID(req.params.id)};
-      db.collection('notes').remove(details, function(err, item) {
-          if (err) {
-            res.send({"error" : "Cannot remove note with id "+req.params.id});
-          } else {
-            res.send("Note "+req.params.id+" deleted");
-          }
-      });
-    });
-
-    //Update
+    //UPDATE
     app.put('/notes/:id', (req, res) => {
         const details = {"_id": new ObjectID(req.params.id)};
         const note = {
@@ -63,5 +51,17 @@ module.exports = function(app, db) {
               res.send(note);
             }
         });
+    });
+
+    //DELETE
+    app.delete('/notes/:id', (req, res) => {
+      const details = { "_id": new ObjectID(req.params.id)};
+      db.collection('notes').remove(details, function(err, item) {
+          if (err) {
+            res.send({"error" : "Cannot remove note with id "+req.params.id});
+          } else {
+            res.send("Note "+req.params.id+" deleted");
+          }
+      });
     });
 };
